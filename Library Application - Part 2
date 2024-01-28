@@ -47,3 +47,44 @@ export default LoginScreen;
 .app-section{
   padding: 5vh 10%;
 }
+
+const getUserToken = () =>{
+  return localStorage.getItem("token");
+};
+
+export {getUserToken};
+
+import {LibraryApplicationBackend} from "./LibraryApplicationBackend";
+
+export const loginUser = async ({email, password}) =>{
+  const {data} = await LibraryApplicationBackend.post("/user/login",{email,password});
+  return data;
+};
+
+export const signUpUser = async (userData) => {
+  const {data} = await LibraryApplicationBackend.post("/user/signup", userData);
+  return data;
+};
+
+const vaidateCredentials = () =>{
+  return credentials.email?.length && credentials.password?.length;  
+};
+
+const setUser = () =>{
+  loginStorage.setItem("token", data.token);
+  localStorage.setItem("user", data.user);
+};
+
+const LoginUserFunction = async ({email,password}) =>{
+  const data = await loginUser({email,[assword});
+  setUser(data);
+  return data.user;
+};
+
+const signupUserFunction = async (userData) =>{
+  conast data = await signupUser(userData);
+  setUser(data);
+  return data.user;
+}
+
+export {getUserToken, loginUserFunction as loginUser, signupUserFunction as signupUser};
